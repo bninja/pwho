@@ -10,11 +10,11 @@ pwho
 
 PROXY protocol v1:
 
-    http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt
+- http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt
 
 parsing **taken** from:
 
-    https://github.com/benoitc/gunicorn/
+- https://github.com/benoitc/gunicorn/
 
 Get it:
 
@@ -22,7 +22,7 @@ Get it:
 
    $ pip install pwho
     
-Use it e.g.  with ``SocketServer` like:
+Use it e.g.  with ``SocketServer`` like:
 
 .. code:: python
 
