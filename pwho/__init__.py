@@ -12,14 +12,14 @@ Use it e.g.  with ``SocketServer`` like:
 .. code:: python
 
     import SocketServer
-    
+
     import pwho
-    
+
     class SFTPRequestHandler(
               SocketServer.StreamRequestHandler,
               pwh.StreamRequestMixin
           ):
-    
+
         def handle(self)
             proxy_info = self.proxy_protocol(
                 error='unread', limit=4096, default='peer'
@@ -60,35 +60,35 @@ class StreamRequestMixin(object):
     """
     `SocketServer.StreamRequestHandler` mixin for adding PROXY protocol
     parsing, e.g.:
-    
+
     .. code:: python
-    
+
         import netaddr
         import pwho
-    
+
         class MyRequestHandler(
                   SocketServer.StreamRequestHandler, pwho.StreamRequestMixin
               ):
-    
+
             def proxy_authenticate(self, info):
                 if not super(MyRequestHandler, self).proxy_authenticate(info):
                     return False
                 destination_ip = netaddr.IPAddress(info.destination_address)
                 return destination_ip in netaddr.IPNetwork('10/8')
-    
+
             def handle(self)
                 proxy_info = self.proxy_protocol(default='peer', authenticate=True)
                 ...
-    
+
     """
 
     def proxy_authenticate(self, info):
         """
         Authentication hook for parsed proxy information. Defaults to ensuring
         destination (i.e. proxy) is the peer.
-        
+
         :param info: Parsed ``ProxyInfo`` instance.
-        
+
         :returns: ``True`` if authenticated, otherwise ``False``.
         """
         return (info.destination_address, info.destination_port) == self.client_address
@@ -97,7 +97,7 @@ class StreamRequestMixin(object):
         """
         Parses, and optionally authenticates, proxy protocol information from
         request. Note that ``self.request`` is wrapped by ``SocketBuffer``.
-        
+
         :param error:
             How read (``exc.ReadError``) and parse (``exc.ParseError``) are
             handled, one of:
@@ -109,7 +109,7 @@ class StreamRequestMixin(object):
         :param limit:
             Maximum number of bytes to read when probing request for
             ``ProxyInfo``.
-        
+
         :returns: Parsed ``ProxyInfo`` instance or **default** if none found.
         """
         if error not in ('raise', 'unread'):
@@ -225,9 +225,9 @@ def read_line(sock, buffer, read_size=256, limit=None):
 def parse_line(line):
     """
     Parses a byte string like:
-    
+
        PROXY TCP4 192.168.0.1 192.168.0.11 56324 443\r\n
-    
+
     to a `ProxyInfo`.
     """
     if not line.startswith(b'PROXY'):

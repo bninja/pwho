@@ -1,4 +1,3 @@
-import inspect
 import io
 import socket
 import SocketServer
@@ -143,23 +142,23 @@ def test_unread_stream_request_line_overflow(unread_stream_server):
 
 
 @pytest.mark.parametrize('line, expected', [
-    (b'', pwho.exc.NoLine),
-    (b'PROXY UNKNOWN', pwho.exc.NoLine),
-    (b'PROXY TCP4 sry 192.168.0.11 56324 443', pwho.exc.NoLine),
+    (b'', (pwho.exc.NoLine, socket.error)),
+    (b'PROXY UNKNOWN', (pwho.exc.NoLine, socket.error)),
+    (b'PROXY TCP4 sry 192.168.0.11 56324 443', (pwho.exc.NoLine, socket.error)),
     (b'PROXY TCP4 192.168.0.1 192.168.0.11 56324 443', b'192.168.0.1,56324,192.168.0.11,443'),
-    (b'PROXY TCP4 192.168.0.1 192.168.0.11 abc 443', pwho.exc.NoLine),
+    (b'PROXY TCP4 192.168.0.1 192.168.0.11 abc 443', (pwho.exc.NoLine, socket.error)),
     (b'PROXY TCP6 FE80:0000:0000:0000:0202:B3FF:FE1E:8329 2607:f0d0:1002:0051:0000:0000:0000:0004 56324 443', b'FE80:0000:0000:0000:0202:B3FF:FE1E:8329,56324,2607:f0d0:1002:0051:0000:0000:0000:0004,443'),
 ])
 def test_raise_stream_request(raise_stream_server, line, expected):
-    if inspect.isclass(expected) and issubclass(expected, Exception):
-        with pytest.raises(expected):
-            stream_ping(raise_stream_server.server_address, line, b'hiya')
-    else:
+    if isinstance(expected, basestring):
         pong = stream_ping(raise_stream_server.server_address, line, b'hiya')
         assert len(pong), 2
         pl, ml = pong
         assert pl == expected
         assert ml == b'hiya'
+    else:
+        with pytest.raises(expected):
+            stream_ping(raise_stream_server.server_address, line, b'hiya')
 
 
 def test_raise_stream_request_line_overflow(raise_stream_server):
