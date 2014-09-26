@@ -38,3 +38,4 @@ Use it e.g.  with ``SocketServer`` like:
         def handle(self)
             self.proxy_info = self.proxy_protocol(error='unread', authenticate=True)
             ...
+
