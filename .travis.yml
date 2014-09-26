@@ -13,7 +13,7 @@ deploy:
   provider: pypi
   user: somepie
   password:
-    secure: C2inxfKhY3d57QoveNcgE5stWI8OU6UniN81nOnJP4Ej50MlirBo9ab48eVtuIApFEWo/LL/XExAzdyXMaAgs79epiTCzP3pIsEsnQ5qrTnNLlYjzt4yDwg21pi1zFQLK4xXCvP9+3Jj+dlvvzoFAOmJYJY2L1K4tEBikmkOvEo=
+    secure: EN2EexDK1S76L0zqsOC4aCaUIN2zpnHfOikdxPxRkrEt0iqjNHPde7MAAvnDFE07PmqLsZMgz7p/2ieOtOH21EKKzLa8ZdnCHeLJjwjt7cCx0ri0M4A3Ho29e23Tr24pHPOkZ3QCJ13ouBfy5lGEh3mOcXkfrMQMg8h5r1/IrB4=
   on:
     all_branches: true
     tags: true
