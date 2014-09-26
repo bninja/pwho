@@ -1,20 +1,20 @@
 """
 PROXY protocol v1:
 
-    http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt
+- http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt
 
 parsing *taken* from:
 
-    https://github.com/benoitc/gunicorn/
+- https://github.com/benoitc/gunicorn/
 
-Use it e.g.  with ``SocketServer` like:
+Use it e.g.  with ``SocketServer`` like:
 
 .. code:: python
 
     import SocketServer
     
     import pwho
-
+    
     class SFTPRequestHandler(
               SocketServer.StreamRequestHandler,
               pwh.StreamRequestMixin

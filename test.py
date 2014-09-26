@@ -85,6 +85,11 @@ def raise_stream_server(request):
     return server
 
 
+def test_alls():
+    from pwho import *
+    from pwho.exc import *
+
+
 @pytest.mark.parametrize('line, expected', [
     (b'', 'Missing "PROXY" prefix'),
     (pwho.CRLF, 'Missing "PROXY" prefix'),
@@ -158,5 +163,5 @@ def test_raise_stream_request(raise_stream_server, line, expected):
 
 
 def test_raise_stream_request_line_overflow(raise_stream_server):
-    with pytest.raises(pwho.exc.NoLine):
+    with pytest.raises((socket.error, pwho.exc.NoLine)):
         stream_ping(raise_stream_server.server_address, '*' * 4096, b'hiya')
