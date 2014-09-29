@@ -22,7 +22,7 @@ Get it:
 
    $ pip install pwho
     
-Use it e.g.  with ``SocketServer`` like:
+Use it e.g. with ``SocketServer`` like:
 
 .. code:: python
 
@@ -36,6 +36,7 @@ Use it e.g.  with ``SocketServer`` like:
           ):
     
         def handle(self)
-            self.proxy_info = self.proxy_protocol(error='unread', authenticate=True)
+            proxy_info = self.proxy_protocol(
+                error='unread', authenticate=True, default='peer',
+            )
             ...
-

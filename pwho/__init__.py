@@ -99,8 +99,8 @@ class StreamRequestMixin(object):
         request. Note that ``self.request`` is wrapped by ``SocketBuffer``.
 
         :param error:
-            How read (``exc.ReadError``) and parse (``exc.ParseError``) are
-            handled, one of:
+            How read (``exc.ReadError``) and parse (``exc.ParseError``) errors
+            are handled. One of:
             - "raise" to propagate.
             - "unread" to suppress exceptions and unread back to socket.
         :param default:
@@ -189,9 +189,6 @@ class SocketBuffer(object):
             return self.sock.recvfrom_into(buffer, nbytes, flags)
         address = self.sock.getpeername()
         return (self.recv_into(buffer, nbytes, flags), address)
-
-    def send(self, *args, **kwargs):
-        return self.sock.send(*args, **kwargs)
 
     def close(self):
         self.buf.seek(0)
